@@ -2,7 +2,7 @@ export class New {
   id!: number;
   title!: string;
   body!: string;
-  imageUrl!: string;
+  image_url!: string;
   author!: string;
   date!: Date;
 

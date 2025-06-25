@@ -1,1 +1,92 @@
-<p>navbar works!</p>
+<nav class="bg-neutral-900 shadow-lg sticky top-0 z-50 py-3">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-14">
+      <!-- Logo -->
+      <div class="flex items-center h-full" [ngClass]="{ 'hidden sm:flex': isSearchVisible }">
+        <a
+          (click)="navigateToRoot()"
+          class="flex items-center text-3xl font-extrabold text-white hover:text-gray-300 transition-colors cursor-pointer"
+        >
+          <i-lucide name="newspaper" class="h-9 w-9 mr-2 text-primary"></i-lucide>
+          <span>News</span><span class="text-primary">App</span>
+        </a>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="relative flex-1 mx-4" [ngClass]="{ 'hidden sm:block': !isSearchVisible }">
+        <i-lucide name="search" class="absolute left-2 top-1/2 transform -translate-y-1/2 h-5 w-5 text-neutral-400"></i-lucide>
+        <input
+          type="search"
+          [(ngModel)]="searchQuery"
+          (ngModelChange)="onSearchChange($event)"
+          placeholder="Search news..."
+          class="w-full pl-10 pr-10 py-2 bg-neutral-800 text-white placeholder-neutral-400 border border-neutral-700 rounded-lg focus:border-primary focus:ring-primary"
+        />
+        <button
+          *ngIf="searchQuery"
+          (click)="clearSearch()"
+          class="absolute right-2 top-1/2 transform -translate-y-1/2 text-neutral-400 hover:text-white"
+          aria-label="Clear search"
+        >
+          <i-lucide name="x" class="h-4 w-4"></i-lucide>
+        </button>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex items-center space-x-2">
+        <!-- Mobile Search Toggle -->
+        <button
+          (click)="toggleSearchVisibility()"
+          class="sm:hidden text-white hover:bg-neutral-700"
+          aria-label="Toggle search visibility"
+        >
+          <i-lucide [name]="isSearchVisible ? 'x' : 'search'" class="h-6 w-6"></i-lucide>
+        </button>
+
+        <!-- Create Button -->
+        <button
+          (click)="openModal('create')"
+          class="bg-primary text-primary-foreground hover:bg-primary-darker font-semibold px-2 py-2 sm:px-3 sm:py-2 rounded-lg shadow-md hover:shadow-lg transition-transform transform hover:scale-105 flex items-center justify-center"
+          aria-label="Create New Article"
+        >
+          <i-lucide name="plus-circle" class="h-5 w-5 sm:mr-2"></i-lucide>
+          <span class="hidden sm:inline">New</span>
+        </button>
+
+        <!-- Edit/Delete Buttons -->
+        <ng-container *ngIf="isDetailPage && activeId">
+          <button
+            (click)="openModal('edit')"
+            class="text-neutral-300 hover:bg-neutral-700 hover:text-white px-2 py-2 sm:px-3 sm:py-2 rounded flex items-center justify-center"
+            aria-label="Edit Article"
+          >
+            <i-lucide name="edit-3" class="h-5 w-5 sm:mr-2"></i-lucide>
+            <span class="hidden sm:inline">Edit</span>
+          </button>
+          <button
+            (click)="openModal('delete')"
+            class="text-red-400 hover:bg-neutral-700 hover:text-red-300 px-2 py-2 sm:px-3 sm:py-2 rounded flex items-center justify-center"
+            aria-label="Delete Article"
+          >
+            <i-lucide name="trash-2" class="h-5 w-5 sm:mr-2"></i-lucide>
+            <span class="hidden sm:inline">Delete</span>
+          </button>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+
+<!-- Modal -->
+<app-news-modal class="relative"
+  [isOpen]="modalOpen"
+  (openChange)="closeModal($event)"
+  [mode]="modalMode"
+  [news]="currentArticle"
+  (success)="handleModalSuccess($event)"
+></app-news-modal>
+<div *ngIf="(loading$ | async) && modalOpen" class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <app-spinner size="md"></app-spinner>
+  </div>

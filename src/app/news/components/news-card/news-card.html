@@ -1,1 +1,44 @@
-<p>news-card works!</p>
+<!-- src/app/shared/components/news-card/news-card.component.html -->
+<a [routerLink]="['/news', news.id]" class="flex flex-col h-full overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out transform hover:-translate-y-1 group bg-white border border-neutral-200 animate-fadeUp">
+  <!-- Image -->
+  <ng-container *ngIf="news.image_url">
+    <div class="relative w-full h-52 sm:h-60 overflow-hidden">
+      <img
+        [src]="news.image_url"
+        [alt]="news.title"
+        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-70 group-hover:opacity-50 transition-opacity duration-300"></div>
+    </div>
+  </ng-container>
+
+  <!-- Header -->
+  <header class="p-5">
+    <h3 class="text-xl lg:text-2xl font-bold text-neutral-800 line-clamp-2 mb-2 group-hover:text-primary transition-colors duration-300">
+      {{ news.title }}
+    </h3>
+    <div class="flex items-center space-x-3 text-xs text-neutral-500">
+      <div class="flex items-center">
+        <i-lucide name="user-circle" class="h-4 w-4 mr-1 text-secondary"></i-lucide>
+        <span>{{ news.author }}</span>
+      </div>
+      <div class="flex items-center">
+        <i-lucide name="calendar-days" class="h-4 w-4 mr-1 text-secondary"></i-lucide>
+        <span>{{ formattedDate }}</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Body -->
+  <div class="flex-grow p-5 pt-0">
+    <p class="text-sm text-neutral-600 line-clamp-3">{{ truncatedBody }}</p>
+  </div>
+
+  <!-- Footer -->
+  <footer class="p-5 pt-0">
+    <span class="inline-flex items-center text-primary font-semibold group-hover:underline">
+      Read More
+      <i-lucide name="arrow-right" class="ml-1.5 h-4 w-4 transform group-hover:translate-x-1 transition-transform duration-300"></i-lucide>
+    </span>
+  </footer>
+</a>

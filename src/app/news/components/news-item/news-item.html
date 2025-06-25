@@ -1,1 +1,36 @@
-<p>news-item works!</p>
+<a
+  [routerLink]="['/news', news.id]"
+  class="block group mb-4 last:mb-0"
+>
+  <div
+    class="bg-neutral-100/50 hover:bg-neutral-100 p-3 rounded-lg transition-all duration-300 ease-in-out shadow hover:shadow-md"
+  >
+    <div class="flex items-start space-x-3">
+      <ng-container *ngIf="news.image_url">
+        <div class="flex-shrink-0 w-20 h-16 sm:w-24 sm:h-20 relative rounded-md overflow-hidden">
+          <img
+            [src]="news.image_url"
+            [alt]="news.title"
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          />
+        </div>
+      </ng-container>
+      <div class="flex-1 min-w-0">
+        <h4
+          class="text-sm sm:text-base font-semibold text-neutral-700 group-hover:text-primary transition-colors duration-300 line-clamp-2 leading-tight"
+        >
+          {{ news.title }}
+        </h4>
+        <p class="text-xs text-neutral-500 mt-1">
+          {{ news.author }} – {{ formattedDate }}
+        </p>
+      </div>
+      <svg
+        class="h-4 w-4 text-neutral-400 group-hover:text-primary transition-colors duration-300 self-center ml-2 flex-shrink-0"
+        fill="currentColor"
+      >
+        <!-- ArrowRight icon SVG path here -->
+      </svg>
+    </div>
+  </div>
+</a>

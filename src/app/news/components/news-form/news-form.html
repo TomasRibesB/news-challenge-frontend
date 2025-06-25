@@ -1,1 +1,77 @@
-<p>news-form works!</p>
+<!-- src/app/components/news-form/news-form.component.html -->
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
+  <div>
+    <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
+    <input
+      id="title"
+      formControlName="title"
+      type="text"
+      placeholder="Enter news title"
+      class="mt-1 block w-full border border-neutral-300 rounded-md p-2 focus:ring-primary focus:border-primary"
+    />
+    <div *ngIf="form.get('title')?.invalid && form.get('title')?.touched" class="text-red-500 text-sm mt-1">
+      Title is required.
+    </div>
+  </div>
+
+  <div>
+    <label for="body" class="block text-sm font-medium text-gray-700">Body</label>
+    <textarea
+      id="body"
+      formControlName="body"
+      rows="6"
+      placeholder="Enter news body"
+      class="mt-1 block w-full border border-neutral-300 rounded-md p-2 focus:ring-primary focus:border-primary"
+    ></textarea>
+    <div *ngIf="form.get('body')?.invalid && form.get('body')?.touched" class="text-red-500 text-sm mt-1">
+      Body is required.
+    </div>
+  </div>
+
+  <div>
+    <label for="image_url" class="block text-sm font-medium text-gray-700">Image URL (Optional)</label>
+    <input
+      id="image_url"
+      formControlName="image_url"
+      type="url"
+      placeholder="https://example.com/image.jpg"
+      class="mt-1 block w-full border border-neutral-300 rounded-md p-2 focus:ring-primary focus:border-primary"
+    />
+  </div>
+
+  <div>
+    <label for="author" class="block text-sm font-medium text-gray-700">Author</label>
+    <input
+      id="author"
+      formControlName="author"
+      type="text"
+      placeholder="Enter author's name"
+      class="mt-1 block w-full border border-neutral-300 rounded-md p-2 focus:ring-primary focus:border-primary"
+    />
+    <div *ngIf="form.get('author')?.invalid && form.get('author')?.touched" class="text-red-500 text-sm mt-1">
+      Author is required.
+    </div>
+  </div>
+
+  <div class="flex justify-end space-x-3 pt-4">
+    <button
+      type="button"
+      (click)="onCancel()"
+      class="px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300"
+    >
+      Cancel
+    </button>
+    <button
+      type="submit"
+      [disabled]="form.invalid"
+      class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-darker"
+    >
+      <ng-container *ngIf="form.pending; else submitText">
+        <app-spinner size="sm"></app-spinner>
+      </ng-container>
+      <ng-template #submitText>
+        {{ news ? 'Update Article' : 'Create Article' }}
+      </ng-template>
+    </button>
+  </div>
+</form>

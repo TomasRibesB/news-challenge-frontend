@@ -1,1 +1,53 @@
-<p>news works!</p>
+<ng-container *ngIf="(featured$ | async) as featured">
+  <section class="mb-12 md:mb-16">
+    <app-featured-news [news]="featured"></app-featured-news>
+  </section>
+</ng-container>
+
+<div *ngIf="(loading$ | async) && (displayed$ | async)?.length === 0" class="flex justify-center py-20">
+  <app-spinner size="lg"></app-spinner>
+</div>
+
+<div *ngIf="(error$ | async) as err" class="text-center py-20">
+  <i-lucide name="alert-triangle" class="h-16 w-16 text-primary mb-6"></i-lucide>
+  <p class="text-red-500 mb-4">{{ err }}</p>
+  <button (click)="retry()" class="mt-4 bg-primary px-4 py-2 text-white rounded">
+    Try Again
+  </button>
+</div>
+
+<div *ngIf="(searchQuery$ | async) && ((displayed$ | async)?.length ?? 0) > 0" class="mb-8 text-center sm:text-left">
+  <h2 class="text-2xl font-semibold text-neutral-800">
+    Search results for: "<span class="text-primary">{{ searchQuery$ | async }}</span>"
+  </h2>
+  <p class="text-neutral-600 text-sm">{{ (displayed$ | async)?.length ?? 0 }} news(s) found.</p>
+</div>
+
+<div *ngIf="!(loading$ | async) && (displayed$ | async)?.length === 0" class="text-center py-10 min-h-[30vh] flex flex-col justify-center items-center">
+  <ng-container *ngIf="(searchQuery$ | async); else noNews">
+    <i-lucide name="search-x" class="h-16 w-16 text-neutral-400 mx-auto mb-4"></i-lucide>
+    <p class="text-xl text-neutral-700 font-medium">No newss found for "{{ searchQuery$ | async }}".</p>
+    <p class="text-neutral-500 mt-2">Try a different search term or clear the search.</p>
+  </ng-container>
+  <ng-template #noNews>
+    <i-lucide name="alert-triangle" class="h-12 w-12 text-yellow-500 mx-auto mb-4"></i-lucide>
+    <p class="text-xl text-neutral-700 font-medium">No news newss available.</p>
+    <p class="text-neutral-500 mt-2">Create some new newss using the button in the navbar!</p>
+  </ng-template>
+</div>
+
+<section *ngIf="((others$ | async)?.length ?? 0) > 0">
+  <h2 class="text-3xl font-bold text-neutral-800 mb-3 pb-4 border-b-2 border-primary/80">
+    {{ (searchQuery$ | async) ? 'Search Results' : 'More News' }}
+  </h2>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 mt-8">
+    <app-news-card *ngFor="let article of (others$ | async)" [news]="article"></app-news-card>
+  </div>
+</section>
+
+<div *ngIf="(hasMore$ | async) && !(searchQuery$ | async)" class="text-center mt-8">
+  <button (click)="loadMore()" class="bg-primary text-white px-6 py-3 rounded hover:bg-primary-dark transition">
+    <i-lucide name="chevron-down" class="inline-block mr-2"></i-lucide>
+    Load More
+  </button>
+</div>

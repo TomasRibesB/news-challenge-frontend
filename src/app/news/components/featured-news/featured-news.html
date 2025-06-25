@@ -1,0 +1,64 @@
+<div
+  class="relative rounded-xl overflow-hidden shadow-2xl bg-neutral-900 text-white group"
+>
+  <div class="absolute inset-0">
+    <img
+      [src]="news.image_url"
+      [alt]="news.title"
+      class="object-cover w-full h-full opacity-40 group-hover:opacity-50 transform transition-all duration-500 group-hover:scale-105 group-active:scale-110"
+    />
+    <div
+      class="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/60 to-transparent group-active:via-neutral-900/40"
+    ></div>
+  </div>
+  <div
+    class="relative flex flex-col justify-end min-h-[450px] md:min-h-[500px] p-6 sm:p-8 md:p-12"
+  >
+    <div class="max-w-2xl">
+      <div class="mb-3">
+        <span
+          class="inline-block bg-secondary text-secondary-foreground text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full"
+        >
+          Breaking News
+        </span>
+      </div>
+      <h1
+        class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mb-4 leading-tight shadow-sm"
+      >
+        <a
+          [routerLink]="['/news', news.id]"
+          class="hover:underline decoration-primary decoration-2"
+        >
+          {{ news.title }}
+        </a>
+      </h1>
+      <div
+        class="flex flex-wrap items-center space-x-4 text-sm text-neutral-300 mb-4"
+      >
+        <span class="flex items-center">
+          <i-lucide
+            name="user-circle"
+            class="h-5 w-5 mr-1.5 text-primary"
+          ></i-lucide>
+          {{ news.author }}
+        </span>
+        <span class="flex items-center">
+          <i-lucide
+            name="calendar-days"
+            class="h-5 w-5 mr-1.5 text-primary"
+          ></i-lucide>
+          {{ formattedDate }}
+        </span>
+      </div>
+      <p class="text-base md:text-lg text-neutral-200 line-clamp-3 mb-6">
+        {{ contentSnippet }}
+      </p>
+      <a
+        [routerLink]="['/news', news.id]"
+        class="inline-flex items-center px-8 py-6 font-bold text-base rounded-lg shadow-lg text-white transition-transform hover:scale-105 bg-gradient-to-r from-[#F41340] via-[#C226A0] to-[#9239FD]"
+      >
+        Read More <i-lucide name="arrow-right" class="ml-2 h-5 w-5"></i-lucide>
+      </a>
+    </div>
+  </div>
+</div>
