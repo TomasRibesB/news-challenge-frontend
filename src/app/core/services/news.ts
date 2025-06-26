@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable, of, combineLatest } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 import { New } from '../models/new';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { environment } from '../../../environments/environment.prod';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class NewsService {
@@ -164,7 +164,6 @@ export class NewsService {
           const arr = this._allNews.value.map(n =>
             n.id === res.id ? res : n
           );
-          console.log('Updated news:', res);
           this._allNews.next(arr);
           this._currentNews.next(res);
           this._success.next('News updated successfully');

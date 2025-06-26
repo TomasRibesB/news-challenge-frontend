@@ -41,13 +41,12 @@ export class NewsForm {
 
   onSubmit() {
     if (this.form.invalid) return;
-    const data: New = {
-      ...(this.news || {}),
-      ...this.form.value,
-      createdAt: this.news?.date || new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-      id: this.news?.id || ''
-    };
+    const value = this.form.value;
+    const data = new New({
+      ...this.news,
+      ...value,
+      date: this.news?.date || new Date()
+    });
     this.success.emit(data);
   }
 

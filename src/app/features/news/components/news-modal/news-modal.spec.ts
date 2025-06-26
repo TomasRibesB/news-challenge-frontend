@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NewsModal } from './news-modal';
+import { NewsForm } from '../news-form/news-form';
 
 describe('NewsModal', () => {
   let component: NewsModal;

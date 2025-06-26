@@ -48,6 +48,7 @@ export class NewsList implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.newsService.fetchNews();
     this.subscriptions.add(
       this.loading$.subscribe((val) => (this.loading = val))
     );
