@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Navbar } from './news/components/navbar/navbar';
+import { Navbar } from './features/news/components/navbar/navbar';
 
 @Component({
   selector: 'app-root',

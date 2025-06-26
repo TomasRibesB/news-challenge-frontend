@@ -1,13 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { NewsService } from '../../services/news';
-import { New } from '../../models/new';
-import { Spinner } from '../components/spinner/spinner';
-import { NewsItem } from '../components/news-item/news-item';
-import { LucideIconsModule } from '../../shared/lucide-icons.module';
+import { NewsService } from '../../../../core/services/news';
+import { New } from '../../../../core/models/new';
+import { Spinner } from '../../../../shared/components/spinner/spinner';
+import { NewsItem } from '../../components/news-item/news-item';
+import { LucideIconsModule } from '../../../../shared/modules/lucide-icons.module';
 import { Subscription } from 'rxjs';
-
 
 @Component({
   selector: 'app-news-detail',
@@ -37,8 +36,8 @@ export class NewsDetail implements OnInit, OnDestroy {
         this.loadArticle(this.currentId);
       }
     });
-    // Subscribe to real-time detail updates
-    this.currentNewsSub = this.newsService.currentNews$.subscribe(article => {
+
+    this.currentNewsSub = this.newsService.currentNews$.subscribe((article) => {
       if (article && article.id === Number(this.currentId)) {
         this.news = article;
       }
@@ -73,15 +72,17 @@ export class NewsDetail implements OnInit, OnDestroy {
       error: () => {
         this.error = 'Error fetching article.';
         this.isLoading = false;
-      }
+      },
     });
   }
 
   private setRecommended(): void {
     if (!this.news) return;
     this.newsService.allNews$.subscribe((all) => {
-      const pool = all.filter(a => a.id !== this.news!.id);
-      const uniquePool = pool.filter((item, index, arr) => arr.findIndex(i => i.id === item.id) === index);
+      const pool = all.filter((a) => a.id !== this.news!.id);
+      const uniquePool = pool.filter(
+        (item, index, arr) => arr.findIndex((i) => i.id === item.id) === index
+      );
       this.recommended = uniquePool.sort(() => 0.5 - Math.random()).slice(0, 4);
     });
   }

@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { New } from '../../../models/new';
-import { LucideIconsModule } from '../../../shared/lucide-icons.module';
+import { New } from '../../../../core/models/new';
+import { LucideIconsModule } from '../../../../shared/modules/lucide-icons.module';
 
 @Component({
   selector: 'app-news-card',

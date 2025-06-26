@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { New } from '../../../models/new';
+import { New } from '../../../../core/models/new';
 
 @Component({
   selector: 'app-news-item',

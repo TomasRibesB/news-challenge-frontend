@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable, of, combineLatest } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 import { New } from '../models/new';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment.prod';
 
 @Injectable({ providedIn: 'root' })
 export class NewsService {

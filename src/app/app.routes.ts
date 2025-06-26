@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
-import { News } from './news/news';
-import { NewsDetail } from './news/news-detail/news-detail';
+import { NewsList } from './features/news/pages/news-list/news-list';
+import { NewsDetail } from './features/news/pages/news-detail/news-detail';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'news', pathMatch: 'full' },
   {
     path: 'news',
-    component: News
+    component: NewsList
   },
   {
     path: 'news/:id',

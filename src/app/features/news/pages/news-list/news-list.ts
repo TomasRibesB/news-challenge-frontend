@@ -1,21 +1,21 @@
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Spinner } from './components/spinner/spinner';
-import { NewsService } from '../services/news';
-import { NewsCard } from './components/news-card/news-card';
+import { Spinner } from '../../../../shared/components/spinner/spinner';
+import { NewsService } from '../../../../core/services/news';
+import { NewsCard } from '../../components/news-card/news-card';
 import { Observable, combineLatest, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { New } from '../models/new';
-import { LucideIconsModule } from '../shared/lucide-icons.module';
-import { FeaturedNews } from './components/featured-news/featured-news';
+import { New } from '../../../../core/models/new';
+import { LucideIconsModule } from '../../../../shared/modules/lucide-icons.module';
+import { FeaturedNews } from '../../components/featured-news/featured-news';
 
 @Component({
-  selector: 'app-news',
+  selector: 'app-news-list',
   imports: [CommonModule, Spinner, NewsCard, LucideIconsModule, FeaturedNews],
-  templateUrl: './news.html',
-  styleUrls: ['./news.css'],
+  templateUrl: './news-list.html',
+  styleUrl: './news-list.css',
 })
-export class News implements OnInit, OnDestroy {
+export class NewsList implements OnInit, OnDestroy {
   loading$: Observable<boolean>;
   error$: Observable<string | null>;
   displayed$: Observable<New[]>;
@@ -36,16 +36,22 @@ export class News implements OnInit, OnDestroy {
     this.hasMore$ = this.newsService.hasMore$;
 
     this.featured$ = combineLatest([this.searchQuery$, this.displayed$]).pipe(
-      map(([search, list]) => !search && list.length > 0 ? list[0] : null)
+      map(([search, list]) => (!search && list.length > 0 ? list[0] : null))
     );
     this.others$ = combineLatest([this.searchQuery$, this.displayed$]).pipe(
-      map(([search, list]) => !search && list.length > 0 ? list.slice(1) : list)
+      map(([search, list]) =>
+        !search && list.length > 0 ? list.slice(1) : list
+      )
     );
   }
 
   ngOnInit(): void {
-    this.subscriptions.add(this.loading$.subscribe(val => this.loading = val));
-    this.subscriptions.add(this.hasMore$.subscribe(val => this.hasMoreFlag = val));
+    this.subscriptions.add(
+      this.loading$.subscribe((val) => (this.loading = val))
+    );
+    this.subscriptions.add(
+      this.hasMore$.subscribe((val) => (this.hasMoreFlag = val))
+    );
   }
 
   @HostListener('window:scroll', [])
