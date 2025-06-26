@@ -1,59 +1,97 @@
-# NewsChallengeFrontend
+# NewsChallenge Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.3.
+Frontend de la aplicación de noticias desarrollada con Angular y Tailwind CSS.
 
-## Development server
+## Descripción
 
-To start a local development server, run:
+Esta aplicación implementa las siguientes funcionalidades:
+1. Mostrar un listado de noticias.
+2. Mostrar el detalle de una noticia.
+3. Gestionar noticias (CRUD: Crear, Leer, Actualizar, Eliminar).
+
+El frontend consume una API REST para la gestión de datos (ver repositorio backend del challenge) y sigue una arquitectura cliente-servidor.
+
+## Tecnologías y herramientas
+
+- Angular 20
+- TypeScript
+- Tailwind CSS
+- HTML5 y CSS3
+- Karma & Jasmine para pruebas unitarias
+- Docker & Docker Compose
+
+## Prerrequisitos
+
+- Node.js ≥ 20
+- npm ≥ 9
+- Angular CLI (opcional)
+
+## Instalación
 
 ```bash
+npm install
+```
+
+## Modo desarrollo
+
+Inicia el servidor de desarrollo en `http://localhost:4200` y habilita recarga en caliente:
+
+```bash
+npm run start
+# o con Angular CLI:
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Construcción para producción
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Genera los artefactos optimizados en la carpeta `dist/`:
 
 ```bash
-ng generate component component-name
+npm run build
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Docker
+
+El proyecto incluye Dockerfile y docker-compose.yml, con scripts disponibles en `package.json`:
 
 ```bash
-ng generate --help
+# Construir la imagen Docker
+npm run docker:build
+
+# Ejecutar el contenedor en el puerto 80
+npm run docker:run
+
+# Levantar en modo desarrollo con Docker Compose
+npm run docker:dev
+
+# Levantar en modo producción con Docker Compose
+npm run docker:prod
+
+# Detener y eliminar contenedores
+npm run docker:down
 ```
 
-## Building
+## Arquitectura de la aplicación
 
-To build the project run:
+- `src/app/core`: Servicios y modelos compartidos.
+- `src/app/shared`: Componentes reutilizables (spinner, notificaciones, modales).
+- `src/app/features/news`: Módulo específico de noticias con componentes y páginas:
+  - Listado (`news-list`)
+  - Detalle (`news-detail`)
+  - Formulario y modales para creación y edición
+- `app.routes.ts`: Configuración de rutas.
+- Estilos basados en Tailwind CSS.
+
+## Pruebas
+
+Ejecuta las pruebas unitarias con Karma y Jasmine:
 
 ```bash
-ng build
+npm run test
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Autor
 
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Desarrollado por **Tomás Ribes**.
+Repositorio Front: https://github.com/TomasRibesB/news-challenge-frontend
+Repositorio Back: https://github.com/TomasRibesB/news-challenge-backend
