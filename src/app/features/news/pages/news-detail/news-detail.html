@@ -66,6 +66,7 @@
         >
           <img
             [src]="news.image_url"
+            (error)="onImageError($event)"
             [alt]="news.title"
             class="w-full h-full object-cover"
           />

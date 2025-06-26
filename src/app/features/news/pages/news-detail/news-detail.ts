@@ -94,4 +94,10 @@ export class NewsDetail implements OnInit, OnDestroy {
       day: 'numeric',
     });
   }
+
+  onImageError(event: Event) {
+    const img = event.target as HTMLImageElement;
+    img.onerror = null;
+    img.src = 'images/default-news-image.svg';
+  }
 }

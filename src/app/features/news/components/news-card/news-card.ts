@@ -16,7 +16,7 @@ export class NewsCard {
   constructor() {}
 
   get image_url(): string {
-    return this.news.image_url || 'assets/images/default-news-image.jpg';
+    return this.news.image_url || 'images/default-news-image.svg';
   }
 
   get formattedDate(): string {
@@ -33,5 +33,12 @@ export class NewsCard {
     return this.news.body.length > maxLength
       ? this.news.body.substring(0, maxLength) + '...'
       : this.news.body;
+  }
+
+  /** Fallback to default image on load error */
+  onImageError(event: Event) {
+    const img = event.target as HTMLImageElement;
+    img.onerror = null;
+    img.src = 'images/default-news-image.svg';
   }
 }

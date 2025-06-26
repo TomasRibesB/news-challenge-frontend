@@ -4,6 +4,7 @@
   <div class="absolute inset-0">
     <img
       [src]="news.image_url"
+      (error)="onImageError($event)"
       [alt]="news.title"
       class="object-cover w-full h-full opacity-40 group-hover:opacity-50 transform transition-all duration-500 group-hover:scale-105 group-active:scale-110"
     />

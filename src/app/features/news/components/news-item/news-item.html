@@ -10,6 +10,7 @@
         <div class="flex-shrink-0 w-20 h-16 sm:w-24 sm:h-20 relative rounded-md overflow-hidden">
           <img
             [src]="news.image_url"
+            (error)="onImageError($event)"
             [alt]="news.title"
             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
