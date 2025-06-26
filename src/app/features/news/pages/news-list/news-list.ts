@@ -18,6 +18,7 @@ import { FeaturedNews } from '../../components/featured-news/featured-news';
 export class NewsList implements OnInit, OnDestroy {
   loading$: Observable<boolean>;
   error$: Observable<string | null>;
+  success$: Observable<string | null>;
   displayed$: Observable<New[]>;
   searchQuery$: Observable<string>;
   hasMore$: Observable<boolean>;
@@ -31,6 +32,7 @@ export class NewsList implements OnInit, OnDestroy {
   constructor(public newsService: NewsService) {
     this.loading$ = this.newsService.loading$;
     this.error$ = this.newsService.error$;
+    this.success$ = this.newsService.success$;
     this.displayed$ = this.newsService.combinedNews$;
     this.searchQuery$ = this.newsService.search$;
     this.hasMore$ = this.newsService.hasMore$;

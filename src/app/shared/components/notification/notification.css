@@ -1,0 +1,10 @@
+:host {
+  z-index: 1000;
+}
+
+@media (prefers-reduced-motion) {
+  :host .animate-enter,
+  :host .animate-leave {
+    transition: none !important;
+  }
+}

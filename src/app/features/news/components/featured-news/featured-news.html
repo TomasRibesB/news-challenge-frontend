@@ -26,7 +26,7 @@
         class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mb-4 leading-tight shadow-sm"
       >
         <a
-          [routerLink]="['/news', news.id]"
+          [routerLink]="['/news', news.id, news.title.split(' ').join('-').toLowerCase()]"
           class="hover:underline decoration-primary decoration-2"
         >
           {{ news.title }}
@@ -54,7 +54,7 @@
         {{ contentSnippet }}
       </p>
       <a
-        [routerLink]="['/news', news.id]"
+        [routerLink]="['/news', news.id, news.title.split(' ').join('-').toLowerCase()]"
         class="inline-flex items-center px-8 py-6 font-bold text-base rounded-lg shadow-lg text-white transition-transform hover:scale-105 bg-gradient-to-r from-[#F41340] via-[#C226A0] to-[#9239FD]"
       >
         Read More <i-lucide name="arrow-right" class="ml-2 h-5 w-5"></i-lucide>

@@ -1,5 +1,5 @@
 <a
-  [routerLink]="['/news', news.id]"
+  [routerLink]="['/news', news.id, news.title.split(' ').join('-').toLowerCase()]"
   class="block group mb-4 last:mb-0"
 >
   <div

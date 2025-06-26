@@ -9,7 +9,7 @@ export const routes: Routes = [
     component: NewsList
   },
   {
-    path: 'news/:id',
+    path: 'news/:id/:slug',
     component: NewsDetail
   },
   { path: '**', redirectTo: 'news' }

@@ -15,6 +15,7 @@ import {
   ArrowRight,
   ArrowLeft,
   ChevronDown,
+  CheckCircle,
 } from 'lucide-angular';
 
 @NgModule({
@@ -34,6 +35,7 @@ import {
       ArrowRight,
       ArrowLeft,
       ChevronDown,
+      CheckCircle,
     }),
   ],
   exports: [LucideAngularModule],

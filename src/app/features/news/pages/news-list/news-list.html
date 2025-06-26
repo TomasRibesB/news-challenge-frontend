@@ -8,14 +8,6 @@
   <app-spinner size="lg"></app-spinner>
 </div>
 
-<div *ngIf="(error$ | async) as err" class="text-center py-20">
-  <i-lucide name="alert-triangle" class="h-16 w-16 text-primary mb-6"></i-lucide>
-  <p class="text-red-500 mb-4">{{ err }}</p>
-  <button (click)="retry()" class="mt-4 bg-primary px-4 py-2 text-white rounded">
-    Try Again
-  </button>
-</div>
-
 <div *ngIf="(searchQuery$ | async) && ((displayed$ | async)?.length ?? 0) > 0" class="mb-8 text-center sm:text-left">
   <h2 class="text-2xl font-semibold text-neutral-800">
     Search results for: "<span class="text-primary">{{ searchQuery$ | async }}</span>"

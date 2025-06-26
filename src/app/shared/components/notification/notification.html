@@ -1,0 +1,14 @@
+<div *ngIf="visible" class="fixed z-50 top-4 right-4 max-w-sm w-full bg-white border-l-4 p-4 shadow-lg rounded flex items-start space-x-3 transition-opacity duration-300 ease-out"
+     [ngClass]="{'border-green-500': type==='success','border-red-500': type==='error'}">
+  <i-lucide [name]="type==='success' ? 'check-circle' : 'alert-triangle'"
+           class="h-6 w-6"
+           [ngClass]="{'text-green-500': type==='success','text-red-500': type==='error'}"></i-lucide>
+  <div class="flex-1">
+    <p [ngClass]="{'text-green-700': type==='success','text-red-700': type==='error'}">
+      {{ displayMessage }}
+    </p>
+  </div>
+  <button (click)="close()" class="text-gray-500 hover:text-gray-700 ml-2 focus:outline-none">
+    <i-lucide name="x" class="h-4 w-4"></i-lucide>
+  </button>
+</div>

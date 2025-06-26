@@ -15,8 +15,7 @@ export class NewsService {
   private _page = 1;
   private _limit = 5;
   private _hasMore = new BehaviorSubject<boolean>(true);
-
-  // Para detalle en tiempo real
+  private _success = new BehaviorSubject<string | null>(null);
   private _currentNews = new BehaviorSubject<New | null>(null);
 
   allNews$    = this._allNews.asObservable();
@@ -26,6 +25,7 @@ export class NewsService {
   searchResults$ = this._searchResults.asObservable();
   hasMore$    = this._hasMore.asObservable();
   currentNews$ = this._currentNews.asObservable();
+  success$    = this._success.asObservable();
 
   displayed$ = this.allNews$.pipe(
     map(news => news.filter(item =>
@@ -122,14 +122,22 @@ export class NewsService {
     this.http.post<New>(`${environment.apiUrl}/news`, news)
       .pipe(
         catchError((error: HttpErrorResponse) => {
-          this._error.next(error.message || 'Failed to add news');
-          this._loading.next(false);
-          return of(null as any);
-        })
-      )
+          // Mostrar mensajes de validación desde el body si existen
+          const err = error.error;
+          let msg = typeof err?.message === 'string'
+            ? err.message
+            : Array.isArray(err?.message)
+              ? err.message.join(', ')
+              : error.message || 'Failed to add news';
+          this._error.next(msg);
+           this._loading.next(false);
+           return of(null as any);
+         })
+       )
       .subscribe(newArticle => {
         if (newArticle) {
           this._allNews.next([newArticle, ...this._allNews.value]);
+          this._success.next('News added successfully');
         }
         this._loading.next(false);
       });
@@ -140,19 +148,26 @@ export class NewsService {
     this.http.put<New>(`${environment.apiUrl}/news/${id}`, updated)
       .pipe(
         catchError((error: HttpErrorResponse) => {
-          this._error.next(error.message || 'Failed to update news');
-          this._loading.next(false);
-          return of(null as any);
-        })
-      )
+          const err = error.error;
+          let msg = typeof err?.message === 'string'
+            ? err.message
+            : Array.isArray(err?.message)
+              ? err.message.join(', ')
+              : error.message || 'Failed to update news';
+          this._error.next(msg);
+           this._loading.next(false);
+           return of(null as any);
+         })
+       )
       .subscribe(res => {
         if (res) {
           const arr = this._allNews.value.map(n =>
             n.id === res.id ? res : n
           );
+          console.log('Updated news:', res);
           this._allNews.next(arr);
-          // Emit updated article to currentNews for detail view
           this._currentNews.next(res);
+          this._success.next('News updated successfully');
         }
         this._loading.next(false);
       });
@@ -167,16 +182,32 @@ export class NewsService {
           this._allNews.next(this._allNews.value.filter(n => n.id !== id));
           this._currentNews.next(null);
           this._loading.next(false);
+          this._success.next('News deleted successfully');
         }),
         catchError((error: HttpErrorResponse) => {
-          this._error.next(error.message || 'Failed to delete news');
-          this._loading.next(false);
-          return of(undefined);
-        })
-      );
+          const err = error.error;
+          let msg = typeof err?.message === 'string'
+            ? err.message
+            : Array.isArray(err?.message)
+              ? err.message.join(', ')
+              : error.message || 'Failed to delete news';
+          this._error.next(msg);
+           this._loading.next(false);
+           return of(undefined);
+         })
+       );
   }
 
   setSearch(q: string): void {
     this._search.next(q);
+  }
+
+  // Limpiar mensajes de error y éxito
+  clearError(): void {
+    this._error.next(null);
+  }
+
+  clearSuccess(): void {
+    this._success.next(null);
   }
 }

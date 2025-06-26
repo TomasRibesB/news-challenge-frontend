@@ -1,6 +1,9 @@
 <div
   class="min-h-screen bg-background text-foreground font-sans antialiased flex flex-col"
 >
+  <app-notification *ngIf="(error$ | async) as err" type="error" [message]="err" (dismissed)="clearError()"></app-notification>
+  <app-notification *ngIf="(success$ | async) as msg" type="success" [message]="msg" (dismissed)="clearSuccess()"></app-notification>
+
   <app-navbar class="sticky top-0 z-50 shadow-md bg-white"></app-navbar>
 
   <main class="flex-grow container mx-auto px-4 py-8">
