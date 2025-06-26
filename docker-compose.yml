@@ -1,0 +1,17 @@
+version: '3.9'
+services:
+  front-dev:
+    image: node:22-alpine
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    ports:
+      - "4200:4200"
+    command: sh -c "npm ci && npm run start -- --host 0.0.0.0"
+  front-prod:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"

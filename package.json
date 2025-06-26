@@ -6,7 +6,12 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "docker:build": "docker build -t news-frontend .",
+    "docker:run": "docker run --rm -p 80:80 news-frontend",
+    "docker:dev": "docker-compose up --build front-dev",
+    "docker:prod": "docker-compose up --build front-prod",
+    "docker:down": "docker-compose down"
   },
   "private": true,
   "dependencies": {
