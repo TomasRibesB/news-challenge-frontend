@@ -45,9 +45,4 @@
   </div>
 </section>
 
-<div *ngIf="(hasMore$ | async) && !(searchQuery$ | async)" class="text-center mt-8">
-  <button (click)="loadMore()" class="bg-primary text-white px-6 py-3 rounded hover:bg-primary-dark transition">
-    <i-lucide name="chevron-down" class="inline-block mr-2"></i-lucide>
-    Load More
-  </button>
-</div>
+<div #anchor></div>
